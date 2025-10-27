@@ -5,7 +5,8 @@ using System.IO;
 public class Composer : MonoBehaviour
 {
     public TextAsset beatmap;
-    public GameObject[] NotePrefabs;
+    public GameObject[] ShortNotePrefabs;
+    public GameObject[] LongNotePrefabs;
     private float currBeatOffset = 0f;
 
     void Awake()
@@ -25,14 +26,13 @@ public class Composer : MonoBehaviour
             currBeatOffset += GetBeatOffset(components[1]);
 
             // Check for which type of notes should appear
-            if (int.Parse(components[2]) == 0)
+            if (float.Parse(components[2]) == 0f)
             {
-
                 InstantiateShortNote(components[0]);
             }
             else
             {
-                InstanstiateLongNote();
+                InstanstiateLongNote(components[0], float.Parse(components[2]));
             }
         }
     }
@@ -41,41 +41,83 @@ public class Composer : MonoBehaviour
     {
         if (noteDirs.Contains('L'))
         {
-            GameObject instantiated = Instantiate(NotePrefabs[0], transform);
-            instantiated.transform.localPosition = new(NotePrefabs[0].transform.localPosition.x, currBeatOffset);
+            GameObject instantiated = Instantiate(ShortNotePrefabs[0], transform);
+            instantiated.transform.localPosition = new(ShortNotePrefabs[0].transform.localPosition.x, currBeatOffset);
         }
 
         if (noteDirs.Contains('U'))
         {
-            GameObject instantiated = Instantiate(NotePrefabs[1], transform);
-            instantiated.transform.localPosition = new(NotePrefabs[1].transform.localPosition.x, currBeatOffset);
+            GameObject instantiated = Instantiate(ShortNotePrefabs[1], transform);
+            instantiated.transform.localPosition = new(ShortNotePrefabs[1].transform.localPosition.x, currBeatOffset);
         }
 
         if (noteDirs.Contains('D'))
         {
-            GameObject instantiated = Instantiate(NotePrefabs[2], transform);
-            instantiated.transform.localPosition = new(NotePrefabs[2].transform.localPosition.x, currBeatOffset);
+            GameObject instantiated = Instantiate(ShortNotePrefabs[2], transform);
+            instantiated.transform.localPosition = new(ShortNotePrefabs[2].transform.localPosition.x, currBeatOffset);
         }
 
         if (noteDirs.Contains('R'))
         {
-            GameObject instantiated = Instantiate(NotePrefabs[3], transform);
-            instantiated.transform.localPosition = new(NotePrefabs[3].transform.localPosition.x, currBeatOffset);            
+            GameObject instantiated = Instantiate(ShortNotePrefabs[3], transform);
+            instantiated.transform.localPosition = new(ShortNotePrefabs[3].transform.localPosition.x, currBeatOffset);
         }
     }
 
-    void InstanstiateLongNote()
+    void InstanstiateLongNote(string noteDirs, float noteDuration)
     {
+        if (noteDirs.Contains('L'))
+        {
+            GameObject instantiated = Instantiate(LongNotePrefabs[0], transform);
+            instantiated.transform.localPosition = new(LongNotePrefabs[0].transform.localPosition.x, currBeatOffset);
+            Transform end = instantiated.transform.Find("End");
+            SpriteRenderer filler = instantiated.transform.Find("LongNoteFiller").GetComponent<SpriteRenderer>();
 
+            end.localPosition = new(end.localPosition.x, noteDuration);
+            filler.size = new(filler.size.x, noteDuration);
+        }
+
+        if (noteDirs.Contains('U'))
+        {
+            GameObject instantiated = Instantiate(LongNotePrefabs[1], transform);
+            instantiated.transform.localPosition = new(LongNotePrefabs[1].transform.localPosition.x, currBeatOffset);
+            Transform end = instantiated.transform.Find("End");
+            SpriteRenderer filler = instantiated.transform.Find("LongNoteFiller").GetComponent<SpriteRenderer>();
+
+            end.localPosition = new(end.localPosition.x, noteDuration);
+            filler.size = new(filler.size.x, noteDuration);
+        }
+
+        if (noteDirs.Contains('D'))
+        {
+            GameObject instantiated = Instantiate(LongNotePrefabs[2], transform);
+            instantiated.transform.localPosition = new(LongNotePrefabs[2].transform.localPosition.x, currBeatOffset);
+            Transform end = instantiated.transform.Find("End");
+            SpriteRenderer filler = instantiated.transform.Find("LongNoteFiller").GetComponent<SpriteRenderer>();
+
+            end.localPosition = new(end.localPosition.x, noteDuration);
+            filler.size = new(filler.size.x, noteDuration);
+        }
+
+        if (noteDirs.Contains('R'))
+        {
+            GameObject instantiated = Instantiate(LongNotePrefabs[3], transform);
+            instantiated.transform.localPosition = new(LongNotePrefabs[3].transform.localPosition.x, currBeatOffset);
+            Transform end = instantiated.transform.Find("End");
+            SpriteRenderer filler = instantiated.transform.Find("LongNoteFiller").GetComponent<SpriteRenderer>();
+
+            end.localPosition = new(end.localPosition.x, noteDuration);
+            filler.size = new(filler.size.x, noteDuration);
+        }
     }
-    
+
     float GetBeatOffset(string offset)
     {
         string[] fractionParts = offset.Split('/');
 
-        if(fractionParts.Length == 2)
+        if (fractionParts.Length == 2)
         {
-            if(int.TryParse(fractionParts[0], out int numerator) && int.TryParse(fractionParts[1], out int denominator))
+            if (int.TryParse(fractionParts[0], out int numerator) && int.TryParse(fractionParts[1], out int denominator))
             {
                 return numerator / (float)denominator;
             }
