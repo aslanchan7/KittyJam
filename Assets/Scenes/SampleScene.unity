@@ -717,6 +717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2052808320}
+  - component: {fileID: 2052808321}
   m_Layer: 0
   m_Name: Composer
   m_TagString: Untagged
@@ -739,6 +740,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2052808321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052808319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8814b54b35d03479f1870cf7ed16bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatmap: {fileID: 4900000, guid: 10c2915c7f72d134d903bb792b062153, type: 3}
+  NotePrefabs:
+  - {fileID: 2961659315600789525, guid: e5f4c168d8084c44b8d6ba5e00b4ca7b, type: 3}
+  - {fileID: 970797522983012268, guid: 07ec9c2837631b14abe36d330d8a1d9d, type: 3}
+  - {fileID: 1867302581785736840, guid: 1dfb8a047e1d31342b6ac3fb88e8ef94, type: 3}
+  - {fileID: 7536213008453647761, guid: f996a9fb2480c3642b80285fb845acbb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
